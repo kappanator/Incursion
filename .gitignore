@@ -1,0 +1,4 @@
+# file: ~/.gitignore
+.DS_Store
+*.idea
+*.pyo

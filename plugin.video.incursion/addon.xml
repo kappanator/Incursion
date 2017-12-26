@@ -2,7 +2,6 @@
 <addon id="plugin.video.incursion" version="0.1.0" name="Incursion" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
-		<import addon="script.module.beautifulsoup" version="3.2.1"/>
 		<import addon="script.module.incursion" />
 		<import addon="script.incursion.artwork" />
 		<import addon="script.incursion.metadata" />

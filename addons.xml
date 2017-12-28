@@ -4,7 +4,7 @@
 	<extension point="xbmc.addon.repository" name="Incursion Repository">
 		<info compressed="false">https://raw.githubusercontent.com/nixgates/Incursion/master/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/nixgates/Incursion/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/nixgates/Incursion/master/repo/</datadir>
+		<datadir zip="true">https://raw.githubusercontent.com/nixgates/Incursion/master/repo</datadir>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>Incursion Video Repo</summary>
@@ -14,7 +14,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.incursion" version="0.1.0" name="Incursion" provider-name="Incursion">
+<addon id="plugin.video.incursion" version="0.1.1" name="Incursion" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.incursion" />
@@ -60,7 +60,7 @@
 	</extension>
 </addon>
 
-<addon id="script.incursion.metadata" version="1.0.2" name="Incursion Metadata" provider-name="Incursion">
+<addon id="script.incursion.metadata" version="1.0.3" name="Incursion Metadata" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 	</requires>
@@ -91,7 +91,7 @@
   </extension>
 </addon>
 
-<addon id="script.module.incursion" name="Incursion Module" version="1.01" provider-name="Incursion">
+<addon id="script.module.incursion" name="Incursion Module" version="1.02" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="script.module.beautifulsoup4"/>
@@ -100,6 +100,24 @@
 	<extension point="xbmc.addon.metadata">
 		<platform>all</platform>
 		<summary lang="en">Incursion</summary>
+	</extension>
+</addon>
+
+<addon id="script.module.urlresolver" name="URLResolver" version="4.0.16" provider-name="Eldorado, tknorris, tvaddons">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0" />
+		<import addon="plugin.video.youtube" optional="true" />
+		<import addon="script.module.python.twitch" optional="true" />
+		<import addon="script.module.cryptopy" version="1.2.6" optional="true" />
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.python.pluginsource" library="lib/default.py" />
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en">Resolve common video host URL's to be playable in XBMC/Kodi.</summary>
+		<description lang="en">Resolve common video host URL's to be playable in XBMC/Kodi, simplify addon development of video plugins requiring multi video hosts.</description>
+		<forum>https://www.tvaddons.co/forums</forum>
+        <website>https://www.tvaddons.co</website>
 	</extension>
 </addon>
 </addons>

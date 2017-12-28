@@ -62,7 +62,6 @@ class source:
                     if "id:" in i:
                         season_id = re.sub("[^0-9]", "", i)
                 p = s.get(self.episode_search_link + "/" + season_id)
-                print(p.text)
                 episode_list = BeautifulSoup(json.loads(p.text)['html'], 'html.parser').findAll('li')
                 episode_id = []
                 for i in episode_list:

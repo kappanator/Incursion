@@ -40,29 +40,23 @@ class source:
             with requests.session() as s:
                 url = (self.search_link + url.replace(" ", '-')) + \
                       "-season-" + season + "-episode-" + episode + "-" + title.replace(' ', '-')
-                print("INFO SERCH URL - " + url)
                 p = s.get(url)
-                soup = BeautifulSoup(p.text)
+                soup = BeautifulSoup(p.text, 'html.parser')
                 b = soup.findAll('b', {'id': 'ko'})
                 urls = []
                 for i in b:
-                    soup = BeautifulSoup(i['data-iframe'])
+                    soup = BeautifulSoup(i['data-iframe'], 'html.parser')
                     iframe = soup.find('iframe')
                     urls.append(iframe['src'])
-            for i in urls:
-                print("INFO - RETURNED URL: " + i)
             return urls
         except:
             print("Unexpected error in SERC episode Script:", sys.exc_info()[0])
             pass
 
     def sources(self, url, hostDict, hostprDict):
-        print("INFO SERC SOURCES ENTERED")
         sources = []
         try:
-            print("INFO ENTERING SOURCES LOOP")
             for i in url:
-                print("INFO SERC URL" + i)
                 if "thevideo" in i:
                     sources.append(
                         {'source': "thevideo.me", 'quality': "SD", 'language': "en", 'url': i, 'info': '',
@@ -84,8 +78,11 @@ class source:
                         {'source': "openload.co", 'quality': "SD", 'language': "en", 'url': i, 'info': '',
                          'direct': False, 'debridonly': False})
             return sources
-        except:
-            print("Unexpected error in SERC source Script:", sys.exc_info()[0])
+            except Exception as e:
+                print("Unexpected error in Chillax episode Script:")
+                exc_type, exc_obj, exc_tb = sys.exc_info()
+                print(exc_type, exc_tb.tb_lineno)
+                return ""
             return sources
 
     def resolve(self, url):

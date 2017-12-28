@@ -27,13 +27,8 @@ class source:
     def __init__(self):
         self.priority = 0
         self.language = ['en']
-        self.domain = 'chillax.ws'
-        self.base_link = 'http://chillax.ws'
-        self.search_link = 'http://chillax.ws/search/auto?q='
-        self.movie_link = "http://chillax.ws/movies/getMovieLink?"
-        self.login_link = 'http://chillax.ws/session/loginajax'
-        self.tv_link = 'http://chillax.ws/series/getTvLink?'
-        self.login_payload = {'username': '', 'password': ''}
+        self.domain = 'beetv.to/'
+        self.base_link = 'http://beetv.to/'
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         try:
@@ -49,7 +44,7 @@ class source:
                 return url
             with requests.Session() as s:
                 p = s.get('http://beetv.to/watch-' + url + '-online')
-                soup = BeautifulSoup(p.text)
+                soup = BeautifulSoup(p.text, 'html.parser')
                 season_list = soup.findAll('a')
                 for i in season_list:
                     if ('s' + season + "-e" + episode) in i.get('href'):
@@ -69,13 +64,13 @@ class source:
         try:
             with requests.Session() as s:
                 p = s.get("http://beetv.to/" + url)
-                soup = BeautifulSoup(p.text)
+                soup = BeautifulSoup(p.text, 'html.parser')
                 iframes = soup.findAll('iframe')
                 for i in iframes:
                     if 'thevideo' in i.get('src'):
                         sources.append({'source': "thevideo.me", 'quality': 'SD', 'language': "en", 'url': i['src'], 'info': '','direct': False, 'debridonly': False})
                     if 'openload' in i['src']:
-                        sources.append({'source': "openload.co", 'quality': 'HD', 'language': "en", 'url': i['src'], 'info': '','direct': False, 'debridonly': False})
+                        sources.append({'source': "openload.co", 'quality': 'SD', 'language': "en", 'url': i['src'], 'info': '','direct': False, 'debridonly': False})
                     if 'vshare' in i['src']:
                         sources.append({'source': "vshare.eu", 'quality': 'SD', 'language': "en", 'url': i['src'], 'info': '','direct': False, 'debridonly': False})
             return sources

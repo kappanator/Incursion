@@ -106,8 +106,6 @@ class source:
                     pass
             except:
                 pass
-            for i in sources:
-                print("MOVIE4U" + i)
             return sources
         except Exception:
             return

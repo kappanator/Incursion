@@ -66,19 +66,16 @@ class source:
                 search_text = url
                 p = s.get(self.search_link + search_text)
                 show_dict = json.loads(p.text)
-                print("INFO ENTEREING LOOP CHILLAX")
                 for i in show_dict:
                     if i['title'].lower() == search_text.lower():
-                        print("INFO FOUND TITLE " + i['title'])
                         show_dict = i
                         break
                 url = {'title': search_text, 'id': show_dict['id'], 'season': season, 'episode': episode}
                 link = self.tv_link + "id=%s&s=%s&e=%s" % (url["id"], url['season'], url['episode'])
                 p = s.post(link)
-                print("INFO EPISODE LINKS: " + p.text)
                 url = json.loads(p.text)
                 return url
-            except TypeError as e:
+            except Exception as e:
                 print("Unexpected error in Chillax episode Script:")
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 print(exc_type, exc_tb.tb_lineno)

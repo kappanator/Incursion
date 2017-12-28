@@ -50,7 +50,7 @@ class source:
                     p= s.get(self.base_link + self.search_link + url + "-all-seasons")
                     if p.text == '':
                         return url
-                soup = BeautifulSoup(p.text)
+                soup = BeautifulSoup(p.text, 'html.parser')
                 season_link_list = soup.findAll('a')
                 url = []
                 season_list = {}
@@ -61,7 +61,7 @@ class source:
 
                 p = s.get(self.base_link + self.search_episode_link + season_list[season])
                 # NOW SCRAPPING EPISODES
-                soup = BeautifulSoup(p.text)
+                soup = BeautifulSoup(p.text, 'html.parser')
                 episode_link_list = soup.findAll('a')
                 episode_list = {}
                 c = 0
@@ -82,7 +82,7 @@ class source:
         try:
             with requests.Session() as s:
                 p = s.get(self.base_link + self.episode_link + url)
-                soup = BeautifulSoup(p.text)
+                soup = BeautifulSoup(p.text, 'html.parser')
                 src = soup.findAll('iframe')[0]
                 url = src['src']
                 if '//apu,litaurl.com/' in url:

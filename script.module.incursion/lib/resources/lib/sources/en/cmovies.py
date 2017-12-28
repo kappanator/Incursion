@@ -152,8 +152,6 @@ class source:
                 if 'fileHLS' in js and js['fileHLS'] != '':
                     ss.append(['https://hls.streamdor.co/%s%s'%(tok, js['fileHLS']), quali])  
             except:
-                for i in sources:
-                    print(i)
                 return sources
 
             for link in ss:               
@@ -176,9 +174,7 @@ class source:
 
                 except:
                     pass
-            print("---------------------INFO JUM-------------------")
-            for i in sources:
-                print(i)
+
             return sources
         except Exception as e:
             return sources

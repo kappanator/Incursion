@@ -155,11 +155,9 @@ class source:
             token = re.findall("var\s+tok\s*=\s*'([^']+)", result)[0]
 
             idEl = re.findall('elid\s*=\s*"([^"]+)', result)[0]
-            print("INFO FLIX - " + elid +" TOKEN " + token)
             post = {'action': action, 'idEl': idEl, 'token': token, 'elid': elid}
             post = urllib.urlencode(post)
 
-            print("INFO FLIX - STARTING REQ")
             with requests.session() as s:
                 try:
                     headers_request = {'referer': url,
@@ -169,16 +167,14 @@ class source:
                     data = {'action': 'getEpisodeEmb', 'idEl': idEl, 'token': token,
                             'nopop': ''}
                     p = s.post(self.base_link + self.streampost, data=data, headers=headers_request)
-                    print("INFO FLIX - " + p.text)
                 except:
-                    print("Unexpected error in Chillax Script:", sys.exc_info()[0])
+                    print("Unexpected error in Flix Sources Script:", sys.exc_info()[0])
                     pass
 
             r = str(json.loads(p.text))
             r = re.findall('\'(http.+?)\'', r) + re.findall('\"(http.+?)\"', r)
 
             for i in r:
-                print("INFO _ FLIX - " + i)
                 try:
                     if 'googleapis' in i:
                         sources.append({'source': 'GVIDEO', 'quality': 'SD', 'language': 'en', 'url': i, 'direct': True, 'debridonly': False})

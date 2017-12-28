@@ -30,14 +30,14 @@ class source:
     def __init__(self):
         self.priority = 0
         self.language = ['en']
-        self.domains = ['xwatchseries.to','onwatchseries.to']
+        self.domains = ['xwatchseries.to','onwatchseries.to','letswatchseries.ac']
         self.base_link = 'http://itswatchseries.to'
         self.search_link = 'http://itswatchseries.to/show/search-shows-json'
         self.search_link_2 = 'http://itswatchseries.to/search/%s'
 
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
-        print("XWATCH TVSHOW")
+
         try:
             t = cleantitle.get(tvshowtitle)
 
@@ -66,7 +66,6 @@ class source:
 
             url = url.strip('/').split('/')[-1]
             url = url.encode('utf-8')
-            print("XWATCHTVSHOW----- URL: " + url)
             return url
         except:
             return
@@ -98,7 +97,6 @@ class source:
             url = re.findall('(?://.+?|)(/.+)', url)[0]
             url = client.replaceHTMLCodes(url)
             url = url.encode('utf-8')
-            print("XWATCHEPISODE----- URLEND: " + url)
             return url
         except:
             return
@@ -107,7 +105,6 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
-            print("XWATCHSOURCE----- URL: " + url)
             if url == None: return sources
 
             url = urlparse.urljoin(self.base_link, url)

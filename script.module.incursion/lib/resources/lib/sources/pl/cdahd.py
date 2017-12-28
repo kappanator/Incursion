@@ -30,7 +30,7 @@ class source:
         self.language = ['pl']
         self.domains = ['cda-hd.pl']
 
-        self.base_link = 'http://filmtu.pl/'
+        self.base_link = 'http://cda-hd.pl/'
         self.search_link = '/?s=%s'
 
     def do_search(self, title, local_title, year, video_type):

@@ -1,6 +1,7 @@
 Minor Update: 2
 
 Plugin.Video.Incursion - v0.1.1
+	Sources updated in settings.xml
 
 Incusion.Repository: v0.0.2
 	Repository Name Corrected

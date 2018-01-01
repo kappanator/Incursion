@@ -43,19 +43,19 @@
 		<setting id="provider.beetv" type="bool" label="BEETV" default="true" />
 		<setting id="provider.bestmoviez" type="bool" label="BEETV" default="true" />
         <setting id="provider.2dll" type="bool" label="2DLL" default="true" />
-        <setting id="provider.123hulu" type="bool" label="123HULU" default="true" />
-        <setting id="provider.123netflix" type="bool" label="123NETFLIX" default="true" />
         <setting id="provider.afdah" type="bool" label="AFDAH" default="true" />
         <setting id="provider.animeultima" type="bool" label="ANIMEULTIMA" default="true" />
         <setting id="provider.bestmoviez" type="bool" label="BESTMOVIEZ" default="true" />
 		<setting id="provider.chillax" type="bool" label="CHILLAX" default="true" />
         <setting id="provider.cmovies" type="bool" label="CMOVIES" default="true" />
+        <setting id="provider.cartoonhd" type="bool" label="CARTOONHD" default="true" />
         <setting id="provider.ddls" type="bool" label="DDLS" default="true" />
         <setting id="provider.ddlvalley" type="bool" label="DDLVALLEY" default="true" />
         <setting id="provider.directdl" type="bool" label="DIRECTDL" default="true" />
         <setting id="provider.divxcrawler" type="bool" label="DIVXCRAWLER" default="true" />
         <setting id="provider.dizigold" type="bool" label="DIZIGOLD" default="true" />
         <setting id="provider.einthusan" type="bool" label="EINTHUSAN" default="true" />
+        <setting id="provider.filepursuit" type="bool" label="FILEPURSUIT" default="true" />
 		<setting id="provider.flixanity" type="bool" label="FLIXANITY" default="true" />
         <setting id="provider.genvideos" type="bool" label="GENVIDEOS" default="true" />
         <setting id="provider.gogoanime" type="bool" label="GOGOANIME" default="true" />

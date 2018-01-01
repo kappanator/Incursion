@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="incursion.repository" name="Incurison Repository" version="0.0.1" provider-name="NixGates">
+<addon id="incursion.repository" name="Incursion Repository" version="0.0.2" provider-name="NixGates">
 	<extension point="xbmc.addon.repository" name="Incursion Repository">
 		<info compressed="false">https://raw.githubusercontent.com/nixgates/Incursion/master/addons.xml</info>
 		<checksum>https://raw.githubusercontent.com/nixgates/Incursion/master/addons.xml.md5</checksum>
@@ -14,7 +14,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.incursion" version="0.1.1" name="Incursion" provider-name="Incursion">
+<addon id="plugin.video.incursion" version="0.1.2" name="Incursion" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.incursion" />
@@ -91,7 +91,7 @@
   </extension>
 </addon>
 
-<addon id="script.module.incursion" name="Incursion Module" version="1.02" provider-name="Incursion">
+<addon id="script.module.incursion" name="Incursion Module" version="1.03" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="script.module.beautifulsoup4"/>

@@ -73,7 +73,12 @@ class source:
                 for alias in aliases:
                     url = '%s/tv-show/%s/season/%01d/episode/%01d' % (self.base_link, cleantitle.geturl(alias['title']), int(season), int(episode))
                     url = client.request(url, headers=headers,output='geturl', timeout='10')
-                    if not url == None: break
+                    if url == None:
+                        url = '%s/tv-show/%s/season/%01d/episode/%01d' % (
+                            self.base_link, cleantitle.geturl(alias['title'])+'-us', int(season), int(episode))
+                        url = client.request(url, headers=headers, output='geturl', timeout='10')
+                        if not url == None: break
+
             return url
         except:
             return

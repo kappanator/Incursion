@@ -1,0 +1,22 @@
+Minor Update: 2
+
+Plugin.Video.Incursion - v0.1.1
+
+Incusion.Repository: v0.0.2
+	Repository Name Corrected
+
+Script.Module.Incurison: v1.03
+	Removed Putlocker Source/Replaced with new CartoonHD Source
+	ALLRLS source fixed
+	Added Source Filepursuit
+	IMDB Lists Fixed - thanks to throwawaycovenant1's udpate
+	Network Lists Fixed
+	
+Script.Incurison.Metadata: v1.0
+No Changes
+
+Script.Incursion.Artwork: 1.0
+No Changes
+
+Known Issues:
+xwatchseries source

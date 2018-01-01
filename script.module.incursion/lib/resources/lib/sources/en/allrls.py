@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Covenant Add-on
+    Incursion Add-on
+
+    This is a new script added for the Incursion add-on.
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,93 +20,129 @@
 '''
 
 
-import re,urllib,urlparse,json
-
-
+import requests
+from bs4 import BeautifulSoup
 from resources.lib.modules import cleantitle
-from resources.lib.modules import client
-from resources.lib.modules import debrid
-from resources.lib.modules import control
-from resources.lib.modules import source_utils
+from resources.lib.modules import directstream
+import sys
 
 class source:
     def __init__(self):
-        self.priority = 1
+        self.priority = 0
         self.language = ['en']
-        self.domains = ['allrls.pw']
-        self.base_link = 'http://allrls.pw'
-        self.search_link = '?s=%s+%s&go=Search'
-
-
-    def movie(self, imdb, title, localtitle, aliases, year):
-        try:
-            if debrid.status() == False: raise Exception()
-            url = urlparse.urljoin(self.base_link, '%s-%s' % (cleantitle.geturl(title), year))
-            url = client.request(url, output='geturl')
-            if url == None: 
-                url = urlparse.urljoin(self.base_link, '%s' % (cleantitle.geturl(title)))
-                url = client.request(url, output='geturl')
-            if url == None: raise Exception()
-            return url
-        except:
-            return
+        self.domain = 'solarmoviez.ru'
+        self.base_link = 'https://solarmoviez.ru'
+        self.search_link = 'http://allrls.pw/?s='
+        self.episode_search_link = 'https://solarmoviez.ru/ajax/v4_movie_episodes/'
+        self.sources_link = "https://solarmoviez.ru/ajax/movie_sources/"
+        self.headers = {'Referer': "https://solarmoviez.ru",
+                   'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'}
+        self.data = {'keyword': ''}
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
-        if debrid.status() == False: raise Exception()
-        return tvshowtitle
+        url = tvshowtitle
+        return url
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         try:
-            if url == None: return
-            url = urlparse.urljoin(self.base_link, '%s-s%02de%02d' % (cleantitle.geturl(url), int(season), int(episode)))
-            url = client.request(url, output='geturl')
-            print url
-            if url == None: raise Exception()
+            if url == None: return url
+            tvshowtitle = url
+            cleaned_title = cleantitle.geturl(tvshowtitle)
+            if len(episode) == 1:
+                episode = "0" + episode
+            if len(season) == 1:
+                season = "0" + season
+            url = {'cleaned_title': cleaned_title, 'episode': episode, 'season': season}
             return url
         except:
-            return
+            print("Unexpected error in AllRLS Episode Script:")
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            print(exc_type, exc_tb.tb_lineno)
+            return url
 
     def sources(self, url, hostDict, hostprDict):
         try:
             sources = []
+            if not url:
+                return sources
+            tvshowtitle = url['cleaned_title']
+            episode = url['episode']
+            season = url['season']
+            with requests.Session() as s:
+                url = cleantitle.clean_search_query(
+                    self.search_link + tvshowtitle + "+s" + season + "e" + episode + "&go=Search")
+                p = s.get(url)
+                soup = BeautifulSoup(p.text, 'html.parser')
+                content = soup.find_all('h2', {'class': 'entry-title'})
+                if content[0].text == "Nothing Found":
+                    return sources
+                for i in content:
+                    i = i.find('a')
+                    p = s.get(i['href'])
+                    soup = BeautifulSoup(p.text, 'html.parser')
+                    links = soup.find_all('a', href=True, target=True)
+                    for i in links:
+                        quality = ""
+                        i = i['href']
+                        if any(x in i for x in ['.rar', '.zip', '.iso']): pass
+                        if "720p" in i:
+                            quality = "720p"
+                        elif "1080p" in i:
+                            quality = "1080p"
+                        else:
+                            quality = "SD"
 
-            if url == None: return sources
-      
-            hostDict = hostprDict + hostDict
+                        if 'uploadrocket' in i:
+                            sources.append(
+                                {'source': "uploadrocket.net",
+                                 'quality': quality,
+                                 'language': "en",
+                                 'url': i,
+                                 'direct': False,
+                                 'debridonly': True})
 
-            r = client.request(url)           
-
-            urls = client.parseDOM(r, 'a', ret = 'href')
-
-            for url in urls:
-                try:
-
-                    host = re.findall('([\w]+[.][\w]+)$', urlparse.urlparse(url.strip().lower()).netloc)[0]
-                    if not host in hostDict: raise Exception()
-                    
-                    if any(x in url for x in ['.rar', '.zip', '.iso']): raise Exception()
-                    
-                    quality, infoo = source_utils.get_release_quality(url)
-                    
-                    info = []
-                    
-                    if any(x in url.upper() for x in ['HEVC', 'X265', 'H265']): info.append('HEVC')
-                    
-                    info.append('ALLRLS')
-                    
-                    info = ' | '.join(info)
-                    
-                    host = client.replaceHTMLCodes(host)
-                    host = host.encode('utf-8')
-
-                    sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'info': info, 'direct': False, 'debridonly': True})
-                     
-                except:
-                    pass
-
+                        if 'openload' in i:
+                            sources.append(
+                                {'source': "openload.co",
+                                 'quality': quality,
+                                 'language': "en",
+                                 'url': i,
+                                 'direct': False,
+                                 'debridonly': True})
+                        if 'rapidgator' in i:
+                            sources.append(
+                                {'source': "rapidgator.net",
+                                 'quality': quality,
+                                 'language': "en",
+                                 'url': i,
+                                 'direct': False,
+                                 'debridonly': True})
+                        if 'uploaded' in i:
+                            sources.append(
+                                {'source': "uploaded.net",
+                                 'quality': quality,
+                                 'language': "en",
+                                 'url': i,
+                                 'direct': False,
+                                 'debridonly': True})
+                        if 'filefactory' in i:
+                            sources.append(
+                                {'source': "filefactory.com",
+                                 'quality': quality,
+                                 'language': "en",
+                                 'url': i,
+                                 'direct': False,
+                                 'debridonly': True})
             return sources
+
         except:
-            return
+            print("Unexpected error in AllRLS Source Script:")
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            print(exc_type, exc_tb.tb_lineno)
+            return sources
 
     def resolve(self, url):
-        return url
+        if 'google' in url:
+            return directstream.googlepass(url)
+        else:
+            return url

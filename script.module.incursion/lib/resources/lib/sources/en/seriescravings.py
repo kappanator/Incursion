@@ -77,7 +77,7 @@ class source:
                     sources.append(
                         {'source': "openload.co", 'quality': "SD", 'language': "en", 'url': i, 'info': '',
                          'direct': False, 'debridonly': False})
-            return sources
+                return sources
             except Exception as e:
                 print("Unexpected error in Chillax episode Script:")
                 exc_type, exc_obj, exc_tb = sys.exc_info()

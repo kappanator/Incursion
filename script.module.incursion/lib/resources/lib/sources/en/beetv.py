@@ -20,7 +20,7 @@
 
 import requests
 import sys
-from resources.lib.modules import directstream
+from resources.lib.modules import directstream, cleantitle
 from bs4 import BeautifulSoup
 
 class source:
@@ -31,8 +31,10 @@ class source:
         self.base_link = 'http://beetv.to/'
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
+        print(123)
         try:
             url = tvshowtitle.replace(' ', '-')
+            print(url)
         except:
             print("Unexpected error in Beetv Script:", sys.exc_info()[0])
             return url
@@ -40,43 +42,46 @@ class source:
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         try:
-            if not url:
-                return url
-            with requests.Session() as s:
-                p = s.get('http://beetv.to/watch-' + url + '-online')
-                soup = BeautifulSoup(p.text, 'html.parser')
-                season_list = soup.findAll('a')
-                for i in season_list:
-                    if ('s' + season + "-e" + episode) in i.get('href'):
-                        url = i.get('href')
-                        url = url.replace("/", '')
+            url = {'tvshowtitle': url, 'season': season, 'episode': episode}
             return url
         except:
             print("Unexpected error in Beetv Script: episode", sys.exc_info()[0])
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            print(exc_type, exc_tb.tb_lineno)
             return url
 
     def sources(self, url, hostDict, hostprDict):
         sources = []
-        url = str(url)
-        if not url:
-            return sources
-
+        print(url)
         try:
             with requests.Session() as s:
-                p = s.get("http://beetv.to/" + url)
+                episode_link = "http://beetv.to/" + cleantitle.geturl(url['tvshowtitle']) + "-s" + url['season'] + "-e" + url[
+                    'episode']
+                print(episode_link)
+                p = s.get(episode_link)
                 soup = BeautifulSoup(p.text, 'html.parser')
                 iframes = soup.findAll('iframe')
                 for i in iframes:
                     if 'thevideo' in i.get('src'):
-                        sources.append({'source': "thevideo.me", 'quality': 'SD', 'language': "en", 'url': i['src'], 'info': '','direct': False, 'debridonly': False})
+                        sources.append(
+                            {'source': "thevideo.me", 'quality': 'SD', 'language': "en", 'url': i['src'], 'info': '',
+                             'direct': False, 'debridonly': False})
                     if 'openload' in i['src']:
-                        sources.append({'source': "openload.co", 'quality': 'SD', 'language': "en", 'url': i['src'], 'info': '','direct': False, 'debridonly': False})
+                        sources.append(
+                            {'source': "openload.co", 'quality': 'SD', 'language': "en", 'url': i['src'], 'info': '',
+                             'direct': False, 'debridonly': False})
                     if 'vshare' in i['src']:
-                        sources.append({'source': "vshare.eu", 'quality': 'SD', 'language': "en", 'url': i['src'], 'info': '','direct': False, 'debridonly': False})
+                        sources.append(
+                            {'source': "vshare.eu", 'quality': 'SD', 'language': "en", 'url': i['src'], 'info': '',
+                             'direct': False, 'debridonly': False})
+            for i in sources:
+                print(i)
             return sources
         except:
-            print("Unexpected error in Beetv Script: sources", sys.exc_info()[0])
-
+            print("Unexpected error in Beetv Script: episode", sys.exc_info()[0])
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            print(exc_type, exc_tb.tb_lineno)
+            return url
 
     def resolve(self, url):
         if 'google' in url:

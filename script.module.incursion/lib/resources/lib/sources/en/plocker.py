@@ -32,8 +32,8 @@ class source:
         '''
         self.priority = 0
         self.language = ['en']
-        self.domains = ['putlocker.rs']
-        self.base_link = 'https://putlocker.sk'
+        self.domains = ['putlockertv.se']
+        self.base_link = 'https://putlockertv.se'
         self.movie_search_path = ('search?keyword=%s')
         self.episode_search_path = ('/filter?keyword=%s&sort=post_date:Adesc'
                                     '&type[]=series')

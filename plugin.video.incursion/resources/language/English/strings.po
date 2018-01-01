@@ -772,7 +772,7 @@ msgid "Are you sure?"
 msgstr ""
 
 msgctxt "#32556"
-msgid "[B]Incursion[/B] : Library"
+msgid "[B]INCURSION[/B] : Library"
 msgstr ""
 
 msgctxt "#32557"
@@ -920,7 +920,7 @@ msgid "New search..."
 msgstr ""
 
 msgctxt "#32604"
-msgid "[B]Incursion[/B] : Clear search history..."
+msgid "[B]INCURSION[/B] : Clear search history..."
 msgstr ""
 
 msgctxt "#32605"

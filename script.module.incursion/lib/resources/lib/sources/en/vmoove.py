@@ -89,26 +89,6 @@ class source:
                     p = s.get(url)
                     url = p.url
 
-                if 'streamango' in url:
-                    ###############################
-                    # This is currently not working
-                    # URLResolver doesn't like the
-                    # embed link
-                    ###############################
-                    # url = url.replace('https://streamango.com/embed/', '')
-                    # print("NURPLE: - OLD URL - " + url)
-                    # url_id = url.split('/')[0]
-                    # url = 'https://streamango.com/embed/' + url_id
-                    # print("NURPLE: - NEW URL - " + url)
-                    # sources.append({'source': "streamango.com",
-                    #                 'quality': '720p',
-                    #                 'language': "en",
-                    #                 'url': url,
-                    #                 'info': 'TEST STAGE',
-                    #                 'direct': False,
-                    #                 'debridonly': False})
-                    return sources
-
                 if 'thevideo' in url:
                     sources.append(
                         {'source': "thevideo.me",
@@ -119,7 +99,11 @@ class source:
                          'direct': False,
                          'debridonly': False})
         except:
-            print("Unexpected error in VMOOVE sources Script:", sys.exc_info()[0])
+            print("Unexpected error in VMOOVE Sources Script:")
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            print(exc_type, exc_tb.tb_lineno)
+            pass
+
         return sources
 
     def resolve(self, url):

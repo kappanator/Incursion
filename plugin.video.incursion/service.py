@@ -30,7 +30,7 @@ try:
     log_utils.log('####### CURRENT INCURSION VERSIONS REPORT ######################', log_utils.LOGNOTICE)
     log_utils.log('### INCURSION PLUGIN VERSION: %s ###' % str(AddonVersion), log_utils.LOGNOTICE)
     log_utils.log('### INCURSION SCRIPT VERSION: %s ###' % str(ModuleVersion), log_utils.LOGNOTICE)
-    log_utils.log('### INCURSION REPOSITORY VERSION: %s ###' % str(RepoVersion), log_utils.LOGNOTICE)
+    #log_utils.log('### INCURSION REPOSITORY VERSION: %s ###' % str(RepoVersion), log_utils.LOGNOTICE)
     log_utils.log('###############################################################', log_utils.LOGNOTICE)
 except:
     log_utils.log('######################### INCURSION ############################', log_utils.LOGNOTICE)

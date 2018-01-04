@@ -46,7 +46,6 @@
         <setting id="provider.afdah" type="bool" label="AFDAH" default="true" />
         <setting id="provider.animeultima" type="bool" label="ANIMEULTIMA" default="true" />
         <setting id="provider.bestmoviez" type="bool" label="BESTMOVIEZ" default="true" />
-		<setting id="provider.chillax" type="bool" label="CHILLAX" default="true" />
         <setting id="provider.cmovies" type="bool" label="CMOVIES" default="true" />
         <setting id="provider.cartoonhd" type="bool" label="CARTOONHD" default="true" />
         <setting id="provider.ddls" type="bool" label="DDLS" default="true" />
@@ -71,6 +70,7 @@
         <setting id="provider.moviesgold" type="bool" label="MOVIESGOLD" default="true" />
         <setting id="provider.mywatchseries" type="bool" label="MYWATCHSERIES" default="true" />
         <setting id="provider.mzmovies" type="bool" label="MZMOVIES" default="true" />
+        <setting id="provider.ninemovies" type="bool" label="NINEMOVIES" default="true" />
         <setting id="provider.onlinedizi" type="bool" label="ONLINEDIZI" default="true" />
         <setting id="provider.openloadmovies" type="bool" label="OPENLOADMOVIES" default="true" />
         <setting id="provider.phazeddl" type="bool" label="PHAZEDLL" default="true" />
@@ -80,23 +80,22 @@
         <setting id="provider.releasebb" type="bool" label="RELEASEBB" default="true" />
         <setting id="provider.rlsbb" type="bool" label="RLSBB" default="true" />
         <setting id="provider.rlsmovies" type="bool" label="RLSMOVIES" default="true" />
-		<setting id="provider.seriescravings" type="bool" label="SERC" default="true" />
         <setting id="provider.seriescr" type="bool" label="SERIESCR" default="true" />
         <setting id="provider.seriesfree" type="bool" label="SERIESFREE" default="true" />
+        <setting id="provider.seriesonline" type="bool" label="SERIESONLINE" default="true" />
         <setting id="provider.sezonlukdizi" type="bool" label="SEZONLUKDIZI" default="true" />
+        <setting id="provider.showbox" type="bool" label="SHOWBOX" default="true" />
         <setting id="provider.solarmovie" type="bool" label="SOLARMOVIE" default="true" />
         <setting id="provider.tvbox" type="bool" label="TVBOX" default="true" />
         <setting id="provider.tvrelease" type="bool" label="TVRELEASE" default="true" />
         <setting id="provider.ultrahd" type="bool" label="ULTRAHD" default="true" />
         <setting id="provider.videoscraper" type="bool" label="VIDEOSCRAPER" default="true" />
         <setting id="provider.vodly" type="bool" label="VODLY" default="true" />
-		<setting id="provider.vmoove" type="bool" label="VMOOVE" default="true" />
 		<setting id="provider.vumoo" type="bool" label="VUMOO" default="true" />
         <setting id="provider.watch32" type="bool" label="WATCH32" default="true" />
         <setting id="provider.watchfree" type="bool" label="WATCHFREE" default="true" />
         <setting id="provider.watchseries" type="bool" label="WATCHSERIES" default="true" />
         <setting id="provider.wrzcraft" type="bool" label="WRZCRAFT" default="true" />
-        <setting id="provider.xwatchseries" type="bool" label="XWATCHSERIES" default="true" />
         <setting id="provider.xmovies" type="bool" label="XMOVIES" default="true" />
         <setting id="provider.ymovies" type="bool" label="YMOVIES" default="true" />
         <setting label="Italian" type="lsep" />
@@ -235,6 +234,15 @@
         <setting id="alluc.api" type="text" label="32309" default="" />
         <setting id="alluc.limit" type="labelenum" label="32581" default="100" values="10|20|30|40|50|60|70|80|90|100|150|200" />
         <setting id="alluc.download" type="bool" label="32009" default="false" />
+        <setting type="sep" />
+        <setting type="lsep" label="Chillax.ws" />
+        <setting id="chillax.username" type="text" label="32303" default="" />
+        <setting id="chillax.password" type="text" option="hidden" label="32307" default="" />
+        <setting type="sep" />
+        <setting type="lsep" label="FILEPURSUIT" />
+        <setting type="lsep" label="FilePursuit app available on the google play store" />
+        <setting type="lsep" label="https://play.google.com/store/apps/details?id=com.filepursuit.filepursuit" />
+        <setting type="sep" />
     </category>
     <category label="32541">
         <setting id="library.movie" type="folder" label="32543" default="special://userdata/addon_data/plugin.video.incursion/Movies" />

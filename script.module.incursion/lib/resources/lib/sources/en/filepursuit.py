@@ -72,7 +72,8 @@ class source:
                             'language': 'en',
                             'url': fileUrl,
                             'direct': False,
-                            'debridonly': False
+                            'debridonly': False,
+                            'info':'FilePursuit App Available on the Play Store'
                         })
             return sources
 

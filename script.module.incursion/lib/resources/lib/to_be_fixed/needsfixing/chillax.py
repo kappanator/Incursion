@@ -34,7 +34,8 @@ class source:
         self.movie_link = "http://chillax.ws/movies/getMovieLink?"
         self.login_link = 'http://chillax.ws/session/loginajax'
         self.tv_link = 'http://chillax.ws/series/getTvLink?'
-        self.login_payload = {'username': '', 'password': ''}
+        self.login_payload = {'username': control.setSetting(id='chillax.username', value=''),
+                              'password': control.setSetting(id='chillax.password', value='')}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         with requests.Session() as s:
@@ -52,6 +53,7 @@ class source:
                 return ""
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
+        print('JUMBO _ USER: ' + self.login_payload['username'] + " PASS " + self.login_payload['password'])
         try:
             url = tvshowtitle
             return url
@@ -62,7 +64,7 @@ class source:
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         with requests.Session() as s:
             try:
-                p= s.post(self.login_link, self.login_payload)
+                p = s.post(self.login_link, self.login_payload)
                 search_text = url
                 p = s.get(self.search_link + search_text)
                 show_dict = json.loads(p.text)

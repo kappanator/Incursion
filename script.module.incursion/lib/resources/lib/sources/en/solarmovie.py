@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Incursion Add-on
-    Copyright (C) 2016 Incursion
+    Covenant Add-on
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,110 +17,253 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import requests
-import json,sys
+
+import re,urllib,urlparse,hashlib,random,string,json,base64,sys,xbmc
+
+from resources.lib.modules import cleantitle
+from resources.lib.modules import client
+from resources.lib.modules import cache
 from resources.lib.modules import directstream
-from bs4 import BeautifulSoup
-import re
+from resources.lib.modules import jsunfuck
+
+CODE = '''def retA():
+    class Infix:
+        def __init__(self, function):
+            self.function = function
+        def __ror__(self, other):
+            return Infix(lambda x, self=self, other=other: self.function(other, x))
+        def __or__(self, other):
+            return self.function(other)
+        def __rlshift__(self, other):
+            return Infix(lambda x, self=self, other=other: self.function(other, x))
+        def __rshift__(self, other):
+            return self.function(other)
+        def __call__(self, value1, value2):
+            return self.function(value1, value2)
+    def my_add(x, y):
+        try: return x + y
+        except Exception: return str(x) + str(y)
+    x = Infix(my_add)
+    return %s
+param = retA()'''
 
 class source:
     def __init__(self):
-        self.priority = 0
+        self.priority = 1
         self.language = ['en']
-        self.domain = 'solarmoviez.ru'
+        self.domains = ['solarmoviez.to', 'solarmoviez.ru']
         self.base_link = 'https://solarmoviez.ru'
-        self.search_link = 'https://solarmoviez.ru/ajax/movie_suggest_search.html'
-        self.episode_search_link = 'https://solarmoviez.ru/ajax/v4_movie_episodes/'
-        self.sources_link = "https://solarmoviez.ru/ajax/movie_sources/"
-        self.headers = {'Referer': "https://solarmoviez.ru",
-                   'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'}
-        self.data = {'keyword': ''}
+        self.search_link = '/movie/search/%s.html'
+        self.info_link = '/ajax/movie_info/%s.html?is_login=false'
+        self.server_link = '/ajax/v4_movie_episodes/%s'
+        self.embed_link = '/ajax/movie_embed/%s'
+        self.token_link = '/ajax/movie_token?eid=%s&mid=%s'
+        self.source_link = '/ajax/movie_sources/%s?x=%s&y=%s'
+
+    def matchAlias(self, title, aliases):
+        try:
+            for alias in aliases:
+                if cleantitle.get(title) == cleantitle.get(alias['title']):
+                    return True
+        except:
+            return False
+
+    def movie(self, imdb, title, localtitle, aliases, year):
+        try:
+            aliases.append({'country': 'us', 'title': title})
+            url = {'imdb': imdb, 'title': title, 'year': year, 'aliases': aliases}
+            url = urllib.urlencode(url)
+            return url
+        except:
+            return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
-        url={'tvshowtitle': tvshowtitle}
-        return url
+        try:
+            aliases.append({'country': 'us', 'title': tvshowtitle})
+            url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year, 'aliases': aliases}
+            url = urllib.urlencode(url)
+            return url
+        except:
+            return
+
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         try:
-            show_title = url['tvshowtitle']
-            self.data['keyword'] = show_title + " " + season
-            season_link = ""
-            sources = []
-            if len(episode) == 1:
-                episode = "0" + episode
-            with requests.Session() as s:
-                p = s.post(self.search_link, headers=self.headers, data=self.data)
-                search_res = json.loads(p.text)
-                search_links = BeautifulSoup(search_res['content'],'html.parser').findAll('a', href=True)
-                for i in search_links:
-                    if (show_title + " - Season " + season) in i.text:
-                        season_link = i['href']
-                p = s.get(season_link)
-                season_page = BeautifulSoup(p.text,'html.parser')
-                for i in season_page.findAll('script', src=False, type=True)[1].prettify().split('\n'):
-                    if "id:" in i:
-                        season_id = re.sub("[^0-9]", "", i)
-                p = s.get(self.episode_search_link + "/" + season_id)
-                episode_list = BeautifulSoup(json.loads(p.text)['html'], 'html.parser').findAll('li')
-                episode_id = []
-                for i in episode_list:
-                    if ("Episode" + episode) in i.text:
-                        episode_id.append((i['data-id']))
-                    if ("Episode " + episode) in i.text:
-                        episode_id.append((i['data-id']))
-            url = {'season_id':season_id,'episode_id':episode_id}
+            if url == None: return
+            url = urlparse.parse_qs(url)
+            url = dict([(i, url[i][0]) if url[i] else (i, '') for i in url])
+            url['title'], url['premiered'], url['season'], url['episode'] = title, premiered, season, episode
+            url = urllib.urlencode(url)
+            return url
+        except:
+            return
+
+    def searchShow(self, title, season, aliases, headers):
+        try:
+            title = cleantitle.normalize(title)
+            search = '%s Season %s' % (title, season)
+            url = urlparse.urljoin(self.base_link, self.search_link % urllib.quote_plus(cleantitle.getsearch(search)))
+
+            r = client.request(url)
+
+            url = re.findall('<a href=\"(.+?\/movie\/%s-season-%s-.+?\.html)\"' % (cleantitle.geturl(title), season), r)[0]
+
             return url
 
         except:
-            print("Unexpected error in Solarmovie Episode Script:")
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            print(exc_type, exc_tb.tb_lineno)
-        return ""
+            return
+
+    def searchMovie(self, title, year, aliases, headers):
+        try:
+            title = cleantitle.normalize(title)
+            url = urlparse.urljoin(self.base_link, self.search_link % urllib.quote_plus(cleantitle.getsearch(title)))
+            r = client.request(url, headers=headers, timeout='15')
+            r = client.parseDOM(r, 'div', attrs={'class': 'ml-item'})
+            r = zip(client.parseDOM(r, 'a', ret='href'), client.parseDOM(r, 'a', ret='title'))
+            results = [(i[0], i[1], re.findall('\((\d{4})', i[1])) for i in r]
+            try:
+                r = [(i[0], i[1], i[2][0]) for i in results if len(i[2]) > 0]
+                url = [i[0] for i in r if self.matchAlias(i[1], aliases) and (year == i[2])][0]
+            except:
+                url = None
+                pass
+
+            if (url == None):
+                url = [i[0] for i in results if self.matchAlias(i[1], aliases)][0]
+            return url
+        except:
+            return
 
     def sources(self, url, hostDict, hostprDict):
-        sources = []
-        final_links = []
         try:
-            episode_id = url['episode_id']
-            season_id = url['season_id']
-            with requests.Session() as s:
-                for i in episode_id:
-                    url = "https://solarmoviez.ru/ajax/movie_token?eid=" + i + "&mid=" + season_id
-                    p = s.get(url)
-                    coord = p.text.replace(" ", '').replace("_", '').replace(";", '').replace("'", '').split(",")
-                    url = self.sources_link + i + "?" + coord[0] + "&" + coord[1]
-                    p = s.get(url, headers=self.headers)
+            sources = []
+
+            if url is None: return sources
+
+            data = urlparse.parse_qs(url)
+            data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
+            aliases = eval(data['aliases'])
+            headers = {}
+
+            if 'tvshowtitle' in data:
+                episode = int(data['episode'])
+                url = self.searchShow(data['tvshowtitle'], data['season'], aliases, headers)
+            else:
+                episode = 0
+                url = self.searchMovie(data['title'], data['year'], aliases, headers)
+
+            mid = re.findall('-(\d+)', url)[-1]
+
+            try:
+                headers = {'Referer': url}
+                u = urlparse.urljoin(self.base_link, self.server_link % mid)
+                r = client.request(u, headers=headers, XHR=True)
+                r = json.loads(r)['html']
+                r = client.parseDOM(r, 'div', attrs = {'class': 'pas-list'})
+
+                ids = client.parseDOM(r, 'li', ret='data-id')
+                servers = client.parseDOM(r, 'li', ret='data-server')
+                labels = client.parseDOM(r, 'a', ret='title')
+                r = zip(ids, servers, labels)
+
+                for eid in r:
                     try:
-                        source_link = json.loads(p.text)
                         try:
-                            if source_link['playlist'][0]['sources'][0]['file']:
-                                final_links.append(source_link['playlist'][0]['sources'][0]['file'])
+                            ep = re.findall('episode.*?(\d+).*?', eid[2].lower())[0]
                         except:
-                            pass
-                        try:
-                            if source_link['playlist'][0]['sources']['file']:
-                                final_links.append(source_link['playlist'][0]['sources']['file'])
-                        except:
-                            pass
+                            ep = 0
+                        if (episode == 0) or (int(ep) == episode):
+                            url = urlparse.urljoin(self.base_link, self.token_link % (eid[0], mid))
+                            script = client.request(url)
+                            if '$_$' in script:
+                                params = self.uncensored1(script)
+                            elif script.startswith('[]') and script.endswith('()'):
+                                params = self.uncensored2(script)
+                            elif '_x=' in script:
+                                x = re.search('''_x=['"]([^"']+)''', script).group(1)
+                                y = re.search('''_y=['"]([^"']+)''', script).group(1)
+                                params = {'x': x, 'y': y}
+                            else:
+                                raise Exception()
+
+                            u = urlparse.urljoin(self.base_link, self.source_link % (eid[0], params['x'], params['y']))
+                            r = client.request(u, XHR=True)
+                            json_sources = json.loads(r)['playlist'][0]['sources']
+
+                            try:
+                                if 'google' in json_sources['file']:
+                                    quality = 'HD'
+
+                                    if 'bluray' in json_sources['file'].lower():
+                                        quality = '1080p'
+
+                                    sources.append({'source': 'gvideo', 'quality': quality, 'language': 'en',
+                                                    'url': json_sources['file'], 'direct': True, 'debridonly': False})
+
+                            except Exception:
+                                if 'blogspot' in json_sources[0]['file']:
+                                    url = [i['file'] for i in json_sources if 'file' in i]
+                                    url = [directstream.googletag(i) for i in url]
+                                    url = [i[0] for i in url if i]
+
+                                    for s in url:
+                                        sources.append({'source': 'gvideo', 'quality': s['quality'], 'language': 'en',
+                                                        'url': s['url'], 'direct': True, 'debridonly': False})
+
+                                elif 'lemonstream' in json_sources[0]['file']:
+                                    sources.append({
+                                        'source': 'CDN',
+                                        'quality': 'HD',
+                                        'language': 'en',
+                                        'url': json_sources[0]['file'] + '|Referer=' + self.base_link,
+                                        'direct': True,
+                                        'debridonly': False})
                     except:
-                        print("Unexpected error in Solarmovie episode Script:")
-                        exc_type, exc_obj, exc_tb = sys.exc_info()
-                        print(exc_type, exc_tb.tb_lineno)
-                for i in final_links:
-                    if 'lemonstream' in i:
-                        sources.append(
-                            {'source': "lemonstream", 'quality': "720p", 'language': "en", 'url': i+"|Referer="+ self.headers['Referer'], 'info': "",
-                             'direct': False, 'debridonly': False})
+                        pass
+            except:
+                pass
+
             return sources
         except:
-            print("Unexpected error in Solarmovie Sources Script:")
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            print(exc_type, exc_tb.tb_lineno)
-            pass
-
+            return sources
 
     def resolve(self, url):
-        if 'google' in url:
-            return directstream.googlepass(url)
-        else:
-            return url
+        return url
+
+    def uncensored(a, b):
+        x = '' ; i = 0
+        for i, y in enumerate(a):
+            z = b[i % len(b) - 1]
+            y = int(ord(str(y)[0])) + int(ord(str(z)[0]))
+            x += chr(y)
+        x = base64.b64encode(x)
+        return x
+
+    def uncensored1(self, script):
+        try:
+            script = '(' + script.split("(_$$)) ('_');")[0].split("/* `$$` */")[-1].strip()
+            script = script.replace('(__$)[$$$]', '\'"\'')
+            script = script.replace('(__$)[_$]', '"\\\\"')
+            script = script.replace('(o^_^o)', '3')
+            script = script.replace('(c^_^o)', '0')
+            script = script.replace('(_$$)', '1')
+            script = script.replace('($$_)', '4')
+
+            vGlobals = {"__builtins__": None, '__name__': __name__, 'str': str, 'Exception': Exception}
+            vLocals = {'param': None}
+            exec (CODE % script.replace('+', '|x|'), vGlobals, vLocals)
+            data = vLocals['param'].decode('string_escape')
+            x = re.search('''_x=['"]([^"']+)''', data).group(1)
+            y = re.search('''_y=['"]([^"']+)''', data).group(1)
+            return {'x': x, 'y': y}
+        except:
+            pass
+
+    def uncensored2(self, script):
+        try:
+            js = jsunfuck.JSUnfuck(script).decode()
+            x = re.search('''_x=['"]([^"']+)''', js).group(1)
+            y = re.search('''_y=['"]([^"']+)''', js).group(1)
+            return {'x': x, 'y': y}
+        except:
+            pass

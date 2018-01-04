@@ -115,9 +115,9 @@ class source:
         if not url:
             return url
         try:
+
             aliases = url['aliases']
-            aliases.append(url['tvshowtitle'])
-            #aliases.append(url['tvshowtitle'])
+            aliases.append({'title':url['tvshowtitle']})
             sources = []
             if len(episode) == 1:
                 episode = "0" + episode
@@ -127,7 +127,7 @@ class source:
                     p = s.get(self.search_link + search_text)
                     soup = BeautifulSoup(p.text, 'html.parser')
                     soup = soup.find_all('div', {'class': 'ml-item'})[0].find_all('a', href=True)[0]
-                    if soup['title'].lower() == (i['title'] + " - season " + season).lower():
+                    if re.sub(r'\W+', '', soup['title'].lower()) == re.sub(r'\W+', '', ((i['title'] + " - season " + season).lower())):
                         break
                     else:
                         soup = None
@@ -161,6 +161,7 @@ class source:
 
 
     def sources(self, url, hostDict, hostprDict):
+        url = filter(None, url)
         sources = url
         return sources
 

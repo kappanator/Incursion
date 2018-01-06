@@ -1,6 +1,6 @@
 Minor Update: 4
 Fixed Watchseries
-Fixed ALLRLS (again, cleaned up some of the spaghetti)
+Fixed ALLRLS (again + cleaned up some of the spaghetti)
 Added Stealth Theme provided by 2Radzx
 Fixed BEETV
 Cleaned up en source files
@@ -19,6 +19,3 @@ ALLRLS source fixed
 Added Source Filepursuit
 IMDB Lists Fixed - thanks to throwawaycovenant1's udpate
 Network Lists Fixed
-
-Known Issues:
-xwatchseries source

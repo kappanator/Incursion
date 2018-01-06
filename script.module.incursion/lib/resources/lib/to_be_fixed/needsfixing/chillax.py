@@ -32,14 +32,14 @@ class source:
         self.base_link = 'http://chillax.ws'
         self.search_link = 'http://chillax.ws/search/auto?q='
         self.movie_link = "http://chillax.ws/movies/getMovieLink?"
-        self.login_link = 'http://chillax.ws/session/loginajax'
+        self.login_link = 'http://chillax.ws/session/login?return_url=/index'
         self.tv_link = 'http://chillax.ws/series/getTvLink?'
-        self.login_payload = {'username': control.setSetting(id='chillax.username', value=''),
-                              'password': control.setSetting(id='chillax.password', value='')}
+        self.login_payload = {'username': control.setting('chillax.username'),'password':control.setting('chillax.password')}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         with requests.Session() as s:
             try:
+                if (self.login_payload['username'] == '' and self.login_payload['password'] == ''): raise Exception()
                 p = s.post(self.login_link, self.login_payload)
                 search_text = title
                 p = s.get(self.search_link + search_text)
@@ -53,7 +53,6 @@ class source:
                 return ""
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
-        print('JUMBO _ USER: ' + self.login_payload['username'] + " PASS " + self.login_payload['password'])
         try:
             url = tvshowtitle
             return url
@@ -64,6 +63,7 @@ class source:
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         with requests.Session() as s:
             try:
+                if (self.login_payload['username'] == '' and self.login_payload['password'] == ''): raise Exception()
                 p = s.post(self.login_link, self.login_payload)
                 search_text = url
                 p = s.get(self.search_link + search_text)
@@ -76,7 +76,24 @@ class source:
                 link = self.tv_link + "id=%s&s=%s&e=%s" % (url["id"], url['season'], url['episode'])
                 p = s.post(link)
                 url = json.loads(p.text)
-                return url
+                source_list = []
+                for i in url:
+                    video = {}
+                    print(i)
+                    p = s.get(self.base_link + i['file'], stream=True, timeout=1)
+                    if p.history:
+                        video['url'] = p.status_code, p.url
+                        video['quality'] = i['label']
+                        video['source'] = 'gvideo'
+                        video['debridonly'] = False
+                        video['language'] = 'en'
+                        video['info'] = i['type']
+                        source_list.append(video)
+                    else:
+                        pass
+                for i in source_list:
+                    print(i)
+                return source_list
             except Exception as e:
                 print("Unexpected error in Chillax episode Script:")
                 exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -84,24 +101,14 @@ class source:
                 return ""
 
     def sources(self, url, hostDict, hostprDict):
-        try:
-            sources = []
-            source_list = url
-            for i in source_list:
-                url = self.base_link + i["file"]
-                if i['label'] == "360p":
-                    i['label'] = "SD"
-                sources.append(
-                    {'source': "gvideo", 'quality': i['label'], 'language': "en", 'url': url, 'info' : i['type'],
-                     'direct': False, 'debridonly': False})
-            return sources
-        except Exception as e:
-            print("Unexpected error in Chillax SOURCE Script:")
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            print(exc_type, exc_tb.tb_lineno)
+        return url
 
     def resolve(self, url):
-        if 'google' in url:
-            return directstream.googlepass(url)
-        else:
-            return url
+         if 'google' in url:
+             return directstream.googlepass(url)
+         else:
+             return url
+
+#url = source.tvshow(source(), '', '', 'Vikings','','' '','2016')
+#url = source.episode(source(),url,'', '', '', '', '4', '1')
+#sources = source.sources(source(),url,'','')

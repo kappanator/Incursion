@@ -23,7 +23,7 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import directstream
 from resources.lib.modules import source_utils
-
+from resources.lib.modules import cfscrape
 
 class source:
     def __init__(self):

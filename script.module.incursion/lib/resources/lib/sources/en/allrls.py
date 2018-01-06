@@ -23,21 +23,16 @@
 import requests
 from bs4 import BeautifulSoup
 from resources.lib.modules import cleantitle
-from resources.lib.modules import directstream
 import sys
 
 class source:
     def __init__(self):
         self.priority = 0
         self.language = ['en']
-        self.domain = 'solarmoviez.ru'
-        self.base_link = 'https://solarmoviez.ru'
+        self.domain = 'allrls.pw'
+        self.base_link = 'http://allrls.pw'
         self.search_link = 'http://allrls.pw/?s='
-        self.episode_search_link = 'https://solarmoviez.ru/ajax/v4_movie_episodes/'
-        self.sources_link = "https://solarmoviez.ru/ajax/movie_sources/"
-        self.headers = {'Referer': "https://solarmoviez.ru",
-                   'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'}
-        self.data = {'keyword': ''}
+        self.headers = {'Referer':'http://allrls.pw/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'}
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         url = tvshowtitle
@@ -45,6 +40,7 @@ class source:
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         try:
+            print(url)
             if url == None: return url
             tvshowtitle = url
             cleaned_title = cleantitle.geturl(tvshowtitle)
@@ -52,7 +48,7 @@ class source:
                 episode = "0" + episode
             if len(season) == 1:
                 season = "0" + season
-            url = {'cleaned_title': cleaned_title, 'episode': episode, 'season': season}
+            url = {'cleaned_title': url, 'episode': episode, 'season': season}
             return url
         except:
             print("Unexpected error in AllRLS Episode Script:")
@@ -69,16 +65,15 @@ class source:
             episode = url['episode']
             season = url['season']
             with requests.Session() as s:
-                url = cleantitle.clean_search_query(
-                    self.search_link + tvshowtitle + "+s" + season + "e" + episode + "&go=Search")
-                p = s.get(url)
+                url = (self.search_link + "%s+s%se%s" % (tvshowtitle,season,episode)).lower()
+                p = s.get(url, headers=self.headers)
                 soup = BeautifulSoup(p.text, 'html.parser')
                 content = soup.find_all('h2', {'class': 'entry-title'})
                 if content[0].text == "Nothing Found":
                     return sources
                 for i in content:
                     i = i.find('a')
-                    p = s.get(i['href'])
+                    p = s.get(i['href'], headers=self.headers)
                     soup = BeautifulSoup(p.text, 'html.parser')
                     links = soup.find_all('a', href=True, target=True)
                     for i in links:
@@ -133,6 +128,9 @@ class source:
                                  'url': i,
                                  'direct': False,
                                  'debridonly': True})
+            for i in sources:
+
+                print(i)
             return sources
 
         except:
@@ -142,7 +140,8 @@ class source:
             return sources
 
     def resolve(self, url):
-        if 'google' in url:
-            return directstream.googlepass(url)
-        else:
             return url
+
+#url = source.tvshow(source(), '', '', 'Vikings','','' '','2016')
+#url = source.episode(source(),url,'', '', '', '', '5', '1')
+#sources = source.sources(source(),url,'','')

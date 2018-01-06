@@ -1,23 +1,24 @@
+Minor Update: 4
+Fixed Watchseries
+Fixed ALLRLS (again, cleaned up some of the spaghetti)
+Added Stealth Theme provided by 2Radzx
+Fixed BEETV
+Cleaned up en source files
+Cleaned up settings-Providers (still more to go)
+
+Minor Update: 3
+Fixed CMOVIES Source
+Added Filepursuit entry into accounts page and changed link info as agreed to with the FilePursuit creator.
+Fixed Solarmovie
+
 Minor Update: 2
-
-Plugin.Video.Incursion - v0.1.1
-	Sources updated in settings.xml
-
-Incusion.Repository: v0.0.2
-	Repository Name Corrected
-
-Script.Module.Incurison: v1.03
-	Removed Putlocker Source/Replaced with new CartoonHD Source
-	ALLRLS source fixed
-	Added Source Filepursuit
-	IMDB Lists Fixed - thanks to throwawaycovenant1's udpate
-	Network Lists Fixed
-	
-Script.Incurison.Metadata: v1.0
-No Changes
-
-Script.Incursion.Artwork: 1.0
-No Changes
+Sources updated in settings.xml
+Repository Name Corrected
+Removed Putlocker Source/Replaced with new CartoonHD Source
+ALLRLS source fixed
+Added Source Filepursuit
+IMDB Lists Fixed - thanks to throwawaycovenant1's udpate
+Network Lists Fixed
 
 Known Issues:
 xwatchseries source

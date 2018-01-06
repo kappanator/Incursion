@@ -48,7 +48,7 @@
 	</extension>
 </addon>
 
-<addon id="script.incursion.artwork" version="1.0.5" name="Incursion Artwork" provider-name="Incursion">
+<addon id="script.incursion.artwork" version="1.0.6" name="Incursion Artwork" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 	</requires>

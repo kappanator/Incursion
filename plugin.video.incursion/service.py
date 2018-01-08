@@ -18,8 +18,15 @@
 """
 from resources.lib.modules import log_utils
 from resources.lib.modules import control
+import threading
 
 control.execute('RunPlugin(plugin://%s)' % control.get_plugin_url({'action': 'service'}))
+
+def syncTraktLibrary():
+    control.execute(
+        'RunPlugin(plugin://%s)' % 'plugin.video.incursion/?action=tvshowsToLibrarySilent&url=traktcollection')
+    control.execute(
+        'RunPlugin(plugin://%s)' % 'plugin.video.incursion/?action=moviesToLibrarySilent&url=traktcollection')
 
 try:
     ModuleVersion = control.addon('script.module.incursion').getAddonInfo('version')
@@ -37,3 +44,14 @@ except:
     log_utils.log('####### CURRENT INCURSION VERSIONS REPORT ######################', log_utils.LOGNOTICE)
     log_utils.log('### ERROR GETTING INCURSION VERSIONS - NO HELP WILL BE GIVEN AS THIS IS NOT AN OFFICIAL INCURSION INSTALL. ###', log_utils.LOGNOTICE)
     log_utils.log('###############################################################', log_utils.LOGNOTICE)
+
+if control.setting('autoTraktOnStart') == 'true':
+    syncTraktLibrary()
+
+if int(control.setting('schedTraktTime')) > 0:
+    log_utils.log('###############################################################', log_utils.LOGNOTICE)
+    log_utils.log('#################### STARTING TRAKT SCHEDULING ################', log_utils.LOGNOTICE)
+    log_utils.log('#################### SCHEDULED TIME FRAME '+ control.setting('schedTraktTime')  + ' HOURS ################', log_utils.LOGNOTICE)
+    timeout = 3600 * int(control.setting('schedTraktTime'))
+    schedTrakt = threading.Timer(timeout, syncTraktLibrary)
+    schedTrakt.start()

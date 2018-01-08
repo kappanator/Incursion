@@ -831,3 +831,6 @@ msgctxt "#32580"
 msgid "Films/TV Movies"
 msgstr ""
 
+msgctxt "#32608"
+msgid "Auto Updating Trakt Library"
+msgstr ""

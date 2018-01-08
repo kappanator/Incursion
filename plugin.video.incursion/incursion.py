@@ -19,6 +19,8 @@
 
 
 import urlparse,sys,urllib
+from resources.lib.modules import control
+import xbmcgui
 
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?','')))
 
@@ -386,6 +388,10 @@ elif action == 'moviesToLibrary':
     from resources.lib.modules import libtools
     libtools.libmovies().range(url)
 
+elif action == 'moviesToLibrarySilent':
+    from resources.lib.modules import libtools
+    libtools.libmovies().silent(url)
+
 elif action == 'tvshowToLibrary':
     from resources.lib.modules import libtools
     libtools.libtvshows().add(tvshowtitle, year, imdb, tvdb)
@@ -393,6 +399,10 @@ elif action == 'tvshowToLibrary':
 elif action == 'tvshowsToLibrary':
     from resources.lib.modules import libtools
     libtools.libtvshows().range(url)
+
+elif action == 'tvshowsToLibrarySilent':
+    from resources.lib.modules import libtools
+    libtools.libtvshows().silent(url)
 
 elif action == 'updateLibrary':
     from resources.lib.modules import libtools

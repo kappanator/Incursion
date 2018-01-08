@@ -19,6 +19,10 @@
         <setting id="tv.widget" type="enum" label="32325" lvalues="32302|32326" default="1" visible="eq(-12,)" />
         <setting id="prgr.sortorder" type="enum" label="32584" lvalues="32585|32586" default="1" visible="!eq(-13,)" />
         <setting id="lists.widget" type="enum" label="32329" lvalues="32302|32301" default="1" />
+        <setting type="lsep" label="Auto Trakt Collections Syncing" />
+        <setting id="autoTraktOnStart" type="bool" label="Sync on Kodi Start" default="False" />
+        <setting id="schedTraktTime" type="slider" label="Schedule Updates Every - Hour/s" default="0" range="0,24" option="int" />
+        <setting type="lsep" label="0 Value Disables Scheduling" />
     </category>
     <category label="32330">
         <setting id="hosts.mode" type="enum" label="32331" lvalues="32332|32333|32334" default="1" />

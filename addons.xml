@@ -14,7 +14,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.incursion" version="0.1.5" name="Incursion" provider-name="Incursion">
+<addon id="plugin.video.incursion" version="0.1.6" name="Incursion" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.incursion" />
@@ -91,7 +91,7 @@
   </extension>
 </addon>
 
-<addon id="script.module.incursion" name="Incursion Module" version="1.06" provider-name="Incursion">
+<addon id="script.module.incursion" name="Incursion Module" version="1.07" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="script.module.beautifulsoup4"/>

@@ -1,3 +1,8 @@
+Feature Add Update: 1
+Added Trakt Collections AutoSync
+Added MetalliQ Support
+Removed unused Series Cravings source file
+
 Minor Update: 4
 Fixed Watchseries
 Fixed ALLRLS (again + cleaned up some of the spaghetti)

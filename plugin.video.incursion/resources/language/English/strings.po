@@ -934,3 +934,7 @@ msgstr ""
 msgctxt "#32607"
 msgid "Normal"
 msgstr ""
+
+msgctxt "#32608"
+msgid "Auto Syncing Trakt Library"
+msgstr ""

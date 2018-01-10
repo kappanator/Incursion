@@ -21,7 +21,6 @@
 import requests
 import json,sys
 from resources.lib.modules import control
-from resources.lib.modules import directstream
 import inspect
 
 class source:
@@ -39,7 +38,7 @@ class source:
     def movie(self, imdb, title, localtitle, aliases, year):
         with requests.Session() as s:
             try:
-                if (self.login_payload['username'] == '' and self.login_payload['password'] == ''): raise Exception()
+                if (self.login_payload['username'] == '' and self.login_payload['password'] == ''): return ''
                 p = s.post(self.login_link, self.login_payload)
                 search_text = title
                 p = s.get(self.search_link + search_text)
@@ -63,7 +62,7 @@ class source:
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         with requests.Session() as s:
             try:
-                if (self.login_payload['username'] == '' and self.login_payload['password'] == ''): raise Exception()
+                if (self.login_payload['username'] == '' and self.login_payload['password'] == ''): return ''
                 p = s.post(self.login_link, self.login_payload)
                 search_text = url
                 p = s.get(self.search_link + search_text)
@@ -76,24 +75,22 @@ class source:
                 link = self.tv_link + "id=%s&s=%s&e=%s" % (url["id"], url['season'], url['episode'])
                 p = s.post(link)
                 url = json.loads(p.text)
-                source_list = []
+                sources = []
                 for i in url:
                     video = {}
-                    print(i)
-                    p = s.get(self.base_link + i['file'], stream=True, timeout=1)
+                    p = s.get(self.base_link + i['file'], stream=True, timeout=2)
                     if p.history:
-                        video['url'] = p.status_code, p.url
+                        video['url'] = p.url
                         video['quality'] = i['label']
                         video['source'] = 'gvideo'
                         video['debridonly'] = False
                         video['language'] = 'en'
                         video['info'] = i['type']
-                        source_list.append(video)
+                        video['direct'] = True
+                        sources.append(video)
                     else:
                         pass
-                for i in source_list:
-                    print(i)
-                return source_list
+                return sources
             except Exception as e:
                 print("Unexpected error in Chillax episode Script:")
                 exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -104,10 +101,7 @@ class source:
         return url
 
     def resolve(self, url):
-         if 'google' in url:
-             return directstream.googlepass(url)
-         else:
-             return url
+            return url
 
 #url = source.tvshow(source(), '', '', 'Vikings','','' '','2016')
 #url = source.episode(source(),url,'', '', '', '', '4', '1')

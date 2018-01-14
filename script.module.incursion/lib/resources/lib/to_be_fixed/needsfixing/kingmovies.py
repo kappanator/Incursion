@@ -225,3 +225,8 @@ class source:
             return directstream.googlepass(url)
         else:
             return url
+
+
+url = source.tvshow(source(), '', '', 'Vikings','','' '','2016')
+url = source.episode(source(),url,'', '', '', '', '5', '1')
+sources = source.sources(source(),url,'','')

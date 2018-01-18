@@ -1,131 +1,127 @@
 # Addon Name: URLResolver
 # Addon id: script.module.urlresolver
 # Addon Provider:
-# Translators:
-# Anton G, 2017
-# Zvonimir Brajković, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2017-10-18 18:47+0200\n"
-"Last-Translator: gogo\n"
-"Language-Team: Croatian ()\n"
-"Language: hr\n"
+"PO-Revision-Date: 2018-01-07 00:20+0100\n"
+"Language-Team: English\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.0.5\n"
+"Last-Translator: MrTruth\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgctxt "#33000"
 msgid "OpenLoad Stream Authorization"
-msgstr "OpenLoad ovjera strujanja"
+msgstr "Autorizzazione Stream OpenLoad"
 
 msgctxt "#33001"
 msgid "To play this video, authorization is required"
-msgstr "Za reprodukciju ovog videa, potrebna je ovjera"
+msgstr "Per riprodurre questo video, è necessaria l'autorizzazione"
 
 msgctxt "#33002"
 msgid "Visit the link below to authorize the devices on your network:"
-msgstr "Posjetite poveznicu ispod za ovjeru uređaja na vašoj mreži:"
+msgstr "Visita il link sotto per autorizzare i devices sulla rete:"
 
 msgctxt "#33003"
 msgid "[B][COLOR blue]%s[/COLOR][/B] then click 'Pair'"
-msgstr "[B][COLOR blue]%s[/COLOR][/B] zatim kliknite 'Pair'"
+msgstr "[B][COLOR blue]%s[/COLOR][/B] e poi clicca 'Pair'"
 
 msgctxt "#33004"
 msgid "No OpenLoad Authorization"
-msgstr "OpenLoad ovjera nije uspjela"
+msgstr "Nessuna Autorizzazione OpenLoad"
 
 msgctxt "#33005"
 msgid "Automatically update resolver"
-msgstr "Automatski nadopuni razrješitelja"
+msgstr "Aggiornamento automatico resolver"
 
 msgctxt "#33006"
 msgid "Auto-Update Url"
-msgstr "Automatski nadopuni URL"
+msgstr "Auto-Update Url"
 
 msgctxt "#33007"
 msgid "Decryption Key"
-msgstr "Ključ za dešifriranje"
+msgstr "Chiave di decrittografia"
 
 msgctxt "#33008"
 msgid "TheVideo.me Stream Authorization"
-msgstr "TheVideo.me ovjera strujanja"
+msgstr "Autorizzazione Stream TheVideo.me"
 
 msgctxt "#33009"
 msgid "VidUP.me Stream Authorization"
-msgstr "VidUp.me ovjera strujanja"
+msgstr "Autorizzazione Stream VidUP.me"
 
 msgctxt "#33010"
 msgid "Enable Universal Resolvers"
-msgstr "Omogući univerzalnog razrješitelja"
+msgstr "Abilita Resolvers Universali"
 
 msgctxt "#33011"
 msgid "Automatically pick best quality"
-msgstr "Automatski odaberi najbolju kvalitetu"
+msgstr "Usa automaticamente la qualità migliore"
 
 msgctxt "#33012"
 msgid "Use Function Cache"
-msgstr "Koristi funkciju predmemorije"
+msgstr "Usa Funzione Cache"
 
 msgctxt "#33013"
 msgid "Reset Function Cache"
-msgstr "Vrati izvornu funkciju predmemorije"
+msgstr "Usa Funzione Resetta Cache"
 
 msgctxt "#33014"
 msgid "Universal Resolvers"
-msgstr "Univerzalni razrješitelj"
+msgstr "Resolvers Universali"
 
 msgctxt "#33015"
 msgid "Resolvers"
-msgstr "Razrješitelji"
+msgstr "Resolvers"
 
 msgctxt "#33016"
 msgid "Priority"
-msgstr "Prioritet"
+msgstr "Priorità"
 
 msgctxt "#33017"
 msgid "Enabled"
-msgstr "Omogućen"
+msgstr "Abilitato"
 
 msgctxt "#33018"
 msgid "Real-Debrid Resolver Authorized"
-msgstr "Real-Debrid razrješitelj ovjeren"
+msgstr "Real-Debrid Resolver Autorizzato"
 
 msgctxt "#33019"
 msgid "Real-Debrid Authorization Reset"
-msgstr "Real-Debrid razrješitelj vraćen na izvorno"
+msgstr "Reset Autorizzazione Real-Debird"
 
 msgctxt "#33020"
 msgid "Cache Reset"
-msgstr "Predmemorija vraćena na izvorno"
+msgstr "Resetta Cache"
 
 msgctxt "#33021"
 msgid "Cache Reset Failed"
-msgstr "Neuspjelo vraćanje priručne memorije na izvorno"
+msgstr "Reset Cache Fallito"
 
 msgctxt "#33022"
 msgid "login"
-msgstr "Prijava:"
+msgstr "login"
 
 msgctxt "#33023"
 msgid "Username"
-msgstr "Korisničko ime"
+msgstr "Nome Utente"
 
 msgctxt "#33024"
 msgid "Password"
-msgstr "Lozinka"
+msgstr "Password"
 
 msgctxt "#33025"
 msgid "Use HTTPS"
-msgstr "Koristi HTTPS"
+msgstr "Usa HTTPS"
 
 msgctxt "#33026"
 msgid "Customer ID"
-msgstr "Korisnički ID"
+msgstr "Customer ID"
 
 msgctxt "#33027"
 msgid "PIN"
@@ -133,76 +129,76 @@ msgstr "PIN"
 
 msgctxt "#33028"
 msgid "Choose Primary Link Automatically"
-msgstr "Automatski odaberi glavnu poveznicu"
+msgstr "Scegli Automaticamente il primo Link"
 
 msgctxt "#33029"
 msgid "(Re)Authorize My Account"
-msgstr "Ponovna ovjera računa"
+msgstr "(Ri)Autorizza Il Mio Account"
 
 msgctxt "#33030"
 msgid "Reset My Authorization"
-msgstr "Poništi moju ovjeru"
+msgstr "Resetta la mia autorizzazione"
 
 msgctxt "#33031"
 msgid "Resolver Auto-Updated"
-msgstr "Razrješitelj je automatski nadopunjen"
+msgstr "Resolver Auto-Updated"
 
 msgctxt "#33032"
 msgid "Type the letters in the image"
-msgstr "Upiši slova sa slike"
+msgstr "Scrivi le lettere dell'immagine"
 
 msgctxt "#33033"
 msgid "Captcha Error"
-msgstr "Captcha greška"
+msgstr "Errore Captcha"
 
 msgctxt "#33034"
 msgid "Choose the link"
-msgstr "Odaberi poveznicu"
+msgstr "Scegli Il link"
 
 msgctxt "#33035"
 msgid "No link selected"
-msgstr "Nije odabrana poveznica"
+msgstr "Nessun Link Selezionato"
 
 msgctxt "#33036"
 msgid "No Video Link Found"
-msgstr "Nije pronađena poveznica na video"
+msgstr "Nessun Link Video Trovato"
 
 msgctxt "#33037"
 msgid "Captcha Round: %s [I](2 Rounds is typical)[/I]"
-msgstr "Captcha runda: %s [I](uobičajene su 2 runde)[/I]"
+msgstr "Captcha Round: %s [I](2 Rounds is typical)[/I]"
 
 msgctxt "#33038"
 msgid "Cancel"
-msgstr "Odustani"
+msgstr "Annulla"
 
 msgctxt "#33039"
 msgid "OK"
-msgstr "U redu"
+msgstr "OK"
 
 msgctxt "#33040"
 msgid "IP Stream Authorization Pairing"
-msgstr "Uparivanje ovjere IP strujanja"
+msgstr "Autorizzazione IP Stream Pairing"
 
 msgctxt "#33041"
 msgid "No IP Authorization"
-msgstr "Nema IP ovjere"
+msgstr "Nessun IP Autorizzato"
 
 msgctxt "#33042"
 msgid "Client ID"
-msgstr "ID klijenta"
+msgstr "Client ID"
 
 msgctxt "#33043"
 msgid "Vshare.eu Stream Authorization"
-msgstr "Vshare.eu ovjera strujanja"
+msgstr "Autorizzazione Stream Vshare.eu"
 
 msgctxt "#33044"
 msgid "Flashx Stream Authorization"
-msgstr "Flashx ovjera strujanja"
+msgstr "Autorizzazione Stream FlashX"
 
 msgctxt "#33045"
 msgid "AllDebrid Authorization Reset"
-msgstr "Real-Debrid razrješitelj vraćen na izvorno"
+msgstr "Reset Autorizzazione AllDebrid"
 
 msgctxt "#33046"
 msgid "AllDebrid Resolver Authorized"
-msgstr "Real-Debrid razrješitelj ovjeren"
+msgstr "Resolver AllDebrid Autorizzato"

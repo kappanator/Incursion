@@ -6,6 +6,19 @@
 ###            v0.1.8             ###
 #####################################
 
+v0.1.11 (Jan-2018)
+		- Added Highly Experimental Furk Support
+
+v0.1.10 (Jan-2018)
+		- Added Pre-emptive Termination
+			This can be found in the playback settings menu.
+			This operates using the maximum quality setting (up to 1080, if 4k selected it will terminate after limit for 1080 reached)
+			If maximum quality is set to '720p', it will terminate once the limit is reached for the maximum quality and again for SD.
+		- Added Debrid only option
+			This forces Incursion to only attempt to play debrid files. 
+			This will have no effect if there is no debrid resolves enabled.
+		- Fixed + Added Sources
+
 v0.1.9 (Jan-2018)
 		
 		- Fixed RLSBB Source

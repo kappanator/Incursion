@@ -3,8 +3,13 @@
 ###          Change Log           ###
 ###                               ###
 ###        Current Version        ###
-###            v0.1.8             ###
+###            v0.1.12            ###
 #####################################
+
+v0.1.12 (Jan-2018)
+		- Added Season 0 Support
+		- Added Find Similar Context Menu Feature
+		- Added option to disable 24 hour library import delay
 
 v0.1.11 (Jan-2018)
 		- Added Highly Experimental Furk Support

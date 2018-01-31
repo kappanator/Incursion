@@ -14,7 +14,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.incursion" version="0.1.11" name="Incursion" provider-name="Incursion">
+<addon id="plugin.video.incursion" version="0.1.12" name="Incursion" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.incursion" />
@@ -44,8 +44,10 @@
     			<screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
     			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
 		</assets>
-		<news>v0.1.11 (Jan-2018)
-		- Added Highly Experimental Furk Support
+		<news>v0.1.12 (Jan-2018)
+		- Added Season 0 Support
+		- Added Find Similar Context Menu Feature
+		- Added option to disable 24 hour library import delay
 		</news>
 	</extension>
 </addon>
@@ -93,7 +95,7 @@
   </extension>
 </addon>
 
-<addon id="script.module.incursion" name="Incursion Module" version="1.12" provider-name="Incursion">
+<addon id="script.module.incursion" name="Incursion Module" version="1.13" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="script.module.beautifulsoup4"/>

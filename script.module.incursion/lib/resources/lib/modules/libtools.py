@@ -248,9 +248,9 @@ class libtvshows:
 
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours = 5))
         if control.setting('library.importdelay') != 'true':
-            self.date = (self.datetime - datetime.timedelta(hours = 24)).strftime('%Y%m%d')
+            self.date = self.datetime.strftime('%Y%m%d')
         else:
-            self.date = (self.datetime - datetime.timedelta(hours = 24)).strftime('%Y%m%d')
+            self.date = (self.datetime - datetime.timedelta(hours=24)).strftime('%Y%m%d')
         self.silentDialog = False
         self.infoDialog = False
         self.block = False
@@ -403,9 +403,9 @@ class libepisodes:
 
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours = 5))
         if control.setting('library.importdelay') != 'true':
-            self.date = (self.datetime - datetime.timedelta(hours = 24)).strftime('%Y%m%d')
+            self.date = self.datetime.strftime('%Y%m%d')
         else:
-            self.date = (self.datetime - datetime.timedelta(hours = 24)).strftime('%Y%m%d')
+            self.date = (self.datetime - datetime.timedelta(hours=24)).strftime('%Y%m%d')
 
         self.infoDialog = False
 
@@ -487,9 +487,9 @@ class libepisodes:
         # __init__ doesn't get called from services so self.date never gets updated and new episodes are not added to the library
         self.datetime = (datetime.datetime.utcnow() - datetime.timedelta(hours = 5))
         if control.setting('library.importdelay') != 'true':
-            self.date = (self.datetime - datetime.timedelta(hours = 24)).strftime('%Y%m%d')
+            self.date = self.datetime.strftime('%Y%m%d')
         else:
-            self.date = (self.datetime - datetime.timedelta(hours = 24)).strftime('%Y%m%d')
+            self.date = (self.datetime - datetime.timedelta(hours=24)).strftime('%Y%m%d')
         
         for item in items:
             it = None

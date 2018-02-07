@@ -50,8 +50,6 @@ class source:
             pass
 
     def sources(self, url, hostDict, hostprDict):
-        self.search_limit = '10'
-        self.api_key = 'fc0499c70931237957976e2a89fe7951f57b69b3'
         sources = []
         try:
             if len(url['episode']) == 1: url['episode'] = "0" + url['episode']

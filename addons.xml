@@ -49,10 +49,13 @@
     			<screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
     			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
 		</assets>
-		<news>v0.1.12 (Jan-2018)
-		- Added Season 0 Support
-		- Added Find Similar Context Menu Feature
-		- Added option to disable 24 hour library import delay
+		<news>v0.1.13 (Feb-2018)
+		- Re-added Filepursuit scraper
+		- Changes to Furk Scraper - better link identification
+		- Moved Away from TVA URLResolver to Jsergios ResolveURL
+		- Fixed 24 hour delay option
+		- Removed URLResolver from Repo
+		- Removed BeautifulSoup from Repo
 		</news>
 	</extension>
 </addon>
@@ -81,7 +84,7 @@
 	</extension>
 </addon>
 
-<addon id="script.module.incursion" name="Incursion Module" version="1.14" provider-name="Incursion">
+<addon id="script.module.incursion" name="Incursion Module" version="1.15" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="script.module.beautifulsoup4"/>

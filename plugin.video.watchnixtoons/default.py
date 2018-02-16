@@ -3,7 +3,7 @@ import urllib2, urllib, xbmcaddon, xbmcgui, xbmcplugin, xbmc, re, sys, os, reque
 import xbmc,xbmcaddon,xbmcgui,xbmcplugin,xbmcvfs
 from addon.common.addon import Addon
 
-addon_id='plugin.video.watchcartoon_gw'
+addon_id='plugin.video.watchnixtoons'
 selfAddon = xbmcaddon.Addon(id=addon_id)
 addon = Addon(addon_id, sys.argv)
 addon_name = selfAddon.getAddonInfo('name')
@@ -121,6 +121,7 @@ def Get_show_episodes(url):
     OPEN = Open_Url(url)
     Regex = re.compile('class="cat-listview cat-listbsize">(.+?)</ul>',re.DOTALL).findall(OPEN)
     Regex2 = re.compile('<a href="(.+?)".+?title="(.+?)"',re.DOTALL).findall(str(Regex))
+    Regex2.reverse()
     for url,name in Regex2:
         name = name.replace('amp','').replace('&#8217;','\'').replace('&#8211;','-').replace('&#039;','\'').replace('#038;','').replace('\\xc3\\xa9','e').replace('&#8230;','....').replace('\\xe2\\x80\\x99','\'')
         name = name.replace('English Dubbed','[COLOR blue](English Dubbed)[/COLOR]').replace('English Subbed','[COLOR red](English Subbed)[/COLOR]').replace('Watch ','')

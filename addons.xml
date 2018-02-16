@@ -86,7 +86,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.watchnixtoons" name="WatchNixtoons" version="1.0.0" provider-name="Nixgates">
+<addon id="plugin.video.watchnixtoons" name="WatchNixtoons" version="1.0.1" provider-name="Nixgates">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.addon.common" />

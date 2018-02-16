@@ -312,6 +312,8 @@ def getCurrentViewId():
     return str(win.getFocusId())
 
 
+def refresh():
+    return execute('Container.Refresh')
 
 def busy():
     return execute('ActivateWindow(busydialog)')

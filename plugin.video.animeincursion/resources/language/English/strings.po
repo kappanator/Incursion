@@ -1,0 +1,36 @@
+# Addon Name: Incurison
+# Addon id: plugin.video.Incursion
+# Addon Provider: Nixgates
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+
+msgctxt "#326001"
+msgid ""
+msgstr ""
+
+msgctxt "#326002"
+msgid ""
+msgstr ""
+
+msgctxt "#326003"
+msgid ""
+msgstr ""
+
+msgctxt "#326004"
+msgid ""
+msgstr ""
+

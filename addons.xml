@@ -19,7 +19,35 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.incursion" version="0.1.13" name="Incursion" provider-name="Incursion">
+<addon id="plugin.video.animeincursion" version="1.0" name="Anime Incursion" provider-name="Nixgates">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0" />
+		<import addon="script.module.requests" />
+		<import addon="script.module.resolveurl" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="animeincursion.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Anime Incursion</summary>
+		<description lang="en">Anime Incursion - An add-on for MasterAni.me - This addon does not form part of the Kodi Media Centre. Please do not seek assistance with this addon from any of the Official Kodi Support Channels.[CR][CR]The author does not host any of the content in this addon and takes no responsibility for content found.</description>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+		<forum></forum>
+		<website></website>
+		<source></source>
+		<disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+    		</assets>
+		<news>v1.0 (Jan-2018)
+		- Created Add-on
+		</news>
+	</extension>
+</addon>
+
+<addon id="plugin.video.incursion" version="0.1.14" name="Incursion" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.incursion" />
@@ -49,15 +77,30 @@
     			<screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
     			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
 		</assets>
-		<news>v0.1.13 (Feb-2018)
-		- Re-added Filepursuit scraper
-		- Changes to Furk Scraper - better link identification
-		- Moved Away from TVA URLResolver to Jsergios ResolveURL
-		- Fixed 24 hour delay option
-		- Removed URLResolver from Repo
-		- Removed BeautifulSoup from Repo
+		<news>
+			v0.1.14 (FEB-2018)
+			- Furk scraper now supports t_files and season 			packs.
+			- Added Trakt On Deck menu item
+			- Increased support for Xbox One Console.
 		</news>
 	</extension>
+</addon>
+
+<addon id="plugin.video.watchnixtoons" name="WatchNixtoons" version="1.0.0" provider-name="Nixgates">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.addon.common" />
+    <import addon="script.module.requests" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Video</summary>
+    <description lang="en">Temporary Fork to supply resolve fixes for Dandy's WatchCartoonOnline addon. To be Completely re-written in the future</description>
+    <disclaimer lang="en"></disclaimer>
+    <platform>all</platform>
+  </extension>
 </addon>
 
 <addon id="script.incursion.artwork" version="1.0.7" name="Incursion Artwork" provider-name="Incursion">
@@ -84,7 +127,7 @@
 	</extension>
 </addon>
 
-<addon id="script.module.incursion" name="Incursion Module" version="1.15" provider-name="Incursion">
+<addon id="script.module.incursion" name="Incursion Module" version="1.16" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="script.module.beautifulsoup4"/>

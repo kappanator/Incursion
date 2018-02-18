@@ -1,4 +1,4 @@
-import xbmcgui, xbmcplugin, xbmc, sys, re, json, requests
+import xbmcgui, xbmcplugin, xbmc, sys, json
 from lib.scraper import scraper
 from lib import cache
 from lib import control
@@ -233,7 +233,7 @@ class navigator:
                                           is_folder=True,
                                           art=item['art'], meta=item['meta'])
             except:
-                print("Unexpected error in scraper script:", sys.exc_info()[0])
+                print("Unexpected error in listbuilder script:", sys.exc_info()[0])
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 print(str(item))
                 print(exc_type, exc_tb.tb_lineno)

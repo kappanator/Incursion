@@ -1,5 +1,6 @@
 import requests, re, json, sys, urllib
 
+
 class scraper:
     def __init__(self):
         self.main_link = 'https://www.masterani.me'
@@ -10,6 +11,7 @@ class scraper:
         self.detailed_link = '/api/anime/%s/detailed'
         self.genre_link = 'https://www.masterani.me/api/anime/filter?order=score_desc&genres=%s&page=%s&type=%s'
         self.search_link = 'https://www.masterani.me/api/anime/search?search=%s&sb=true'
+        self.list = []
 
     def search(self, url):
         list = []
@@ -37,7 +39,7 @@ class scraper:
             list = self.subpagination(p, subpage)
             list = self.info_builder(list)
         except:
-            print("Unexpected error in scraper script:", sys.exc_info()[0])
+            print("Unexpected error in filter scrape script:", sys.exc_info()[0])
             exc_type, exc_obj, exc_tb = sys.exc_info()
             print(exc_type, exc_tb.tb_lineno)
             pass
@@ -45,13 +47,29 @@ class scraper:
         return list
 
     def info_builder(self, array):
-        from multiprocessing.dummy import Pool as ThreadPool
+        try:
+            '''  from multiprocessing.dummy import Pool as ThreadPool
 
-        pool = ThreadPool(2)
-        results = pool.map(self.info_builder_thread, array)
-        pool.close()
-        pool.join()
-        return results
+            pool = ThreadPool(2)
+            results = pool.map(self.info_builder_thread, array)
+            pool.close()
+            pool.join()'''
+
+            from lib import workers
+
+            self.list = [] ; threads= []
+
+            for i in array:
+                threads.append(workers.Thread(self.info_builder_thread, i))
+            [i.start() for i in threads] ; [i.join() for i in threads]
+
+
+        except:
+            print("Unexpected error in info builder script:", sys.exc_info()[0])
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            print(exc_type, exc_tb.tb_lineno)
+
+        return self.list
 
     def info_builder_thread(self, i):
         item = {}
@@ -91,14 +109,15 @@ class scraper:
             item['slug'] = details['info']['slug']
             item['id'] = details['info']['id']
 
+            self.list.append(item)
         except:
-            print("Unexpected error in scraper script:", sys.exc_info()[0])
+            print("Unexpected error in info_builder thread script:", sys.exc_info()[0])
             exc_type, exc_obj, exc_tb = sys.exc_info()
             print(str(item))
             print(exc_type, exc_tb.tb_lineno)
             pass
 
-        return item
+        return
 
     def episodeList(self, url):
         list = []
@@ -112,7 +131,6 @@ class scraper:
             for i in episodes:
                 try:
                     item = {}
-                    item['title'] = i['info']['title']
                     item['url'] = i['info']['episode']
                     item['type'] = i['info']['type']
                     item['art'] = {}
@@ -133,7 +151,7 @@ class scraper:
                     item['meta']['mediatype'] = 'episode'
                     list.append(item)
                 except:
-                    print("Unexpected error in scraper script:", sys.exc_info()[0])
+                    print("Unexpected error in episode list script:", sys.exc_info()[0])
                     exc_type, exc_obj, exc_tb = sys.exc_info()
                     print(exc_type, exc_tb.tb_lineno)
                     continue
@@ -152,7 +170,7 @@ class scraper:
             list = self.subpagination(p, subpage)
             list = self.info_builder(list)
         except:
-            print("Unexpected error in scraper script:", sys.exc_info()[0])
+            print("Unexpected error in genre scraper script:", sys.exc_info()[0])
             exc_type, exc_obj, exc_tb = sys.exc_info()
             print(exc_type, exc_tb.tb_lineno)
             pass

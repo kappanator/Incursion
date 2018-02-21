@@ -48,7 +48,7 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.incursion" version="0.1.14" name="Incursion" provider-name="Incursion">
+<addon id="plugin.video.incursion" version="0.1.15" name="Incursion" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.incursion" />
@@ -79,10 +79,11 @@
     			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
 		</assets>
 		<news>
-			v0.1.14 (FEB-2018)
-			- Furk scraper now supports t_files and season 			packs.
-			- Added Trakt On Deck menu item
-			- Increased support for Xbox One Console.
+v0.1.15 (FEB-2018)
+Fixed "Trakt - Mark as Watched" Issues
+Added Trakt Bookmarks Function
+Added Auto Resume Option
+Trakt On Deck - Reversed to show last played first.
 		</news>
 	</extension>
 </addon>
@@ -128,7 +129,7 @@
 	</extension>
 </addon>
 
-<addon id="script.module.incursion" name="Incursion Module" version="1.16" provider-name="Incursion">
+<addon id="script.module.incursion" name="Incursion Module" version="1.17" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="script.module.beautifulsoup4"/>
